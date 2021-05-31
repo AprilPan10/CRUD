@@ -1,0 +1,50 @@
+<mat-toolbar color="warn">CRUD - Node.js(Express.js), MySQL, Angular</mat-toolbar>
+<h1
+  style="
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 100px;
+  "
+>
+  Weekly Shopping list
+</h1>
+<mat-card style="width: 40%; margin: auto;">
+  <button
+    (click)="post(groceryInput.value)"
+    mat-raised-button
+    color="warn"
+    style="float: right;">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-label>Grocery item</mat-label>
+  <mat-form-field style="width: 100%;">
+    <input #groceryInput matInput placeholder="Ex. Rice" />
+  </mat-form-field>
+  <mat-list>
+<!--     <mat-paginator showFirstLastButtons
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
+<pagination-controls style="text-align: center;" (pageChange)="p =$event"></pagination-controls>
+    <mat-list-item *ngFor="let grocery of groceries$ | async | paginate: {itemsPerPage:5, currentPage:p}">
+      <span style="font-weight: bold;">{{ grocery.id }}</span> 
+      <mat-form-field style="width: 60%; margin-left: 1em;">
+        <mat-label style="color: black;">{{ grocery.item }}</mat-label>
+        <input #groceryInput matInput placeholder="Ex. Rice"/>
+      </mat-form-field>
+      <span style="position: absolute; right: 0;">
+        <button mat-icon-button>
+          <mat-icon
+            (click)="update(grocery.id, groceryInput.value)"
+            color="warn" >save
+          </mat-icon>
+        </button>
+        <button mat-icon-button>
+          <mat-icon (click)="delete(grocery.id)" color="warn">
+            delete
+          </mat-icon>
+        </button>
+      </span>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
